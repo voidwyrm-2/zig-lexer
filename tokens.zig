@@ -14,8 +14,8 @@ pub const Token = struct {
     pub fn islit(self: Token, lit: []const u8) bool {
         return self.lit == lit;
     }
-    pub fn str(self: Token) void {
-        std.debug.print("Token[{any}, {any}, {d}..{d}, {d}]\n", .{ self.type, self.lit, self.start, self.end, self.ln });
+    pub fn str(self: Token) std.fmt.AllocPrintError![]u8 {
+        return try std.fmt.allocPrint(std.heap.page_allocator, "Token[{any}, {s}, {d}..{d}, {d}]\n", .{ self.type, self.lit, self.start, self.end, self.ln });
     }
 };
 
